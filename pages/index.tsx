@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { VscArrowRight } from 'react-icons/vsc';
-import Image from 'next/image';
 import styles from '@/styles/HomePage.module.css';
 
 const DESIGNATION = 'AI/ML & Flutter Mobile Developer';
@@ -114,22 +113,6 @@ export default function HomePage() {
               View Projects <VscArrowRight />
             </Link>
           </div>
-        </div>
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-start', height: '100%' }}>
-          <Image 
-            src="/flutter.png" 
-            alt="Flutter Logo" 
-            width={320}
-            height={320}
-            style={{ 
-              maxWidth: '320px', 
-              width: '100%', 
-              height: 'auto', 
-              borderRadius: '12px', 
-              boxShadow: '0 4px 24px rgba(0,0,0,0.15)'
-            }}
-            priority
-          />
         </div>
       </div>
       <div className={styles.decorElements}>
