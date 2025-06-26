@@ -1,30 +1,36 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { VscArrowRight } from 'react-icons/vsc';
-
+import Image from 'next/image';
 import styles from '@/styles/HomePage.module.css';
 
-const DESIGNATION = 'AI/ML & Android Developer';
+const DESIGNATION = 'AI/ML & Flutter Mobile Developer';
 
+// Fixed typing effect component with proper const declarations and effect cleanup
 function TypingDesignation({ text }: { text: string }) {
   const [typedText, setTypedText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
     let current = 0;
-    const typingInterval: NodeJS.Timeout = setInterval(() => {
+    // Using const for interval
+    const typingInterval = setInterval(() => {
       setTypedText(text.slice(0, current + 1));
       current++;
       if (current === text.length) {
         clearInterval(typingInterval);
-        const cursorInterval = setInterval(() => {
-          setShowCursor((prev) => !prev);
-        }, 500);
-        return () => clearInterval(cursorInterval);
       }
     }, 80);
+    
+    // Separate effect for cursor blinking to avoid linting issues
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 500);
+    
+    // Proper cleanup for both intervals
     return () => {
       clearInterval(typingInterval);
+      clearInterval(cursorInterval);
     };
   }, [text]);
 
@@ -44,6 +50,7 @@ function TypingDesignation({ text }: { text: string }) {
   );
 }
 
+// Simple preloader component
 function Preloader() {
   return (
     <div style={{
@@ -78,11 +85,13 @@ function Preloader() {
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true);
+  
+  // Bio description
+  const description = "Tech enthusiast. Creative thinker. Always building something impactful. I blend machine learning, Android development, and storytelling to solve real-world problems. Whether it's leading MUNs, organizing hackathons, or kickstarting community ideas — I'm all about innovation, curiosity, and meaningful work.";
 
-  const description = `Tech enthusiast. Creative thinker. Always building something impactful. I blend machine learning, Android development, and storytelling to solve real-world problems. Whether it's leading MUNs, organizing hackathons, or kickstarting community ideas — I'm all about innovation, curiosity, and meaningful work.`;
-
+  // Preloader timer
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1200); // 1.2s preloader
+    const timer = setTimeout(() => setLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -96,7 +105,7 @@ export default function HomePage() {
             Prajwal <span className={styles.accentText}>Gunnala</span>
           </h1>
           {/* Typing effect for designation */}
-          <TypingDesignation text="AI/ML & Flutter Mobile Developer" />
+          <TypingDesignation text={DESIGNATION} />
           <p className={styles.bio} style={{ textAlign: 'left', maxWidth: '75vw', width: '75vw', whiteSpace: 'normal' }}>
             {description}
           </p>
@@ -107,7 +116,20 @@ export default function HomePage() {
           </div>
         </div>
         <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-start', height: '100%' }}>
-          <img src="/flutter.png" alt="Flutter Logo" style={{ maxWidth: '320px', width: '100%', height: 'auto', borderRadius: '12px', boxShadow: '0 4px 24px rgba(0,0,0,0.15)' }} />
+          <Image 
+            src="/flutter.png" 
+            alt="Flutter Logo" 
+            width={320}
+            height={320}
+            style={{ 
+              maxWidth: '320px', 
+              width: '100%', 
+              height: 'auto', 
+              borderRadius: '12px', 
+              boxShadow: '0 4px 24px rgba(0,0,0,0.15)'
+            }}
+            priority
+          />
         </div>
       </div>
       <div className={styles.decorElements}>
