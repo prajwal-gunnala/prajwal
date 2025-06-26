@@ -12,23 +12,19 @@ function TypingDesignation({ text }: { text: string }) {
 
   useEffect(() => {
     let current = 0;
-    let typingInterval: NodeJS.Timeout;
-    let cursorInterval: NodeJS.Timeout;
-    setTypedText('');
-    setShowCursor(true);
-    typingInterval = setInterval(() => {
+    const typingInterval: NodeJS.Timeout = setInterval(() => {
       setTypedText(text.slice(0, current + 1));
       current++;
       if (current === text.length) {
         clearInterval(typingInterval);
-        cursorInterval = setInterval(() => {
+        const cursorInterval = setInterval(() => {
           setShowCursor((prev) => !prev);
         }, 500);
+        return () => clearInterval(cursorInterval);
       }
     }, 80);
     return () => {
       clearInterval(typingInterval);
-      clearInterval(cursorInterval);
     };
   }, [text]);
 
@@ -83,29 +79,7 @@ function Preloader() {
 export default function HomePage() {
   const [loading, setLoading] = useState(true);
 
-  // State for typing effect
-  const [typedDesignation, setTypedDesignation] = useState('');
-  const [showCursor, setShowCursor] = useState(true);
-
-  // Typing effect for designation
-  useEffect(() => {
-    let current = 0;
-    const typingInterval = setInterval(() => {
-      setTypedDesignation(DESIGNATION.slice(0, current + 1));
-      current++;
-      if (current === DESIGNATION.length) {
-        clearInterval(typingInterval);
-        const cursorInterval = setInterval(() => {
-          setShowCursor((prev: boolean) => !prev);
-        }, 500);
-      }
-    }, 80);
-    return () => {
-      clearInterval(typingInterval);
-    };
-  }, []);
-
-  const description = `Tech enthusiast. Creative thinker. Always building something impactful. I blend machine learning, Android development, and storytelling to solve real-world problems. Whether it’s leading MUNs, organizing hackathons, or kickstarting community ideas — I’m all about innovation, curiosity, and meaningful work.`;
+  const description = `Tech enthusiast. Creative thinker. Always building something impactful. I blend machine learning, Android development, and storytelling to solve real-world problems. Whether it's leading MUNs, organizing hackathons, or kickstarting community ideas — I'm all about innovation, curiosity, and meaningful work.`;
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1200); // 1.2s preloader
