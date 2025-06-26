@@ -4,8 +4,113 @@ import { VscArrowRight } from 'react-icons/vsc';
 
 import styles from '@/styles/HomePage.module.css';
 
+const DESIGNATION = 'AI/ML & Android Developer';
+
+function TypingDesignation({ text }: { text: string }) {
+  const [typedText, setTypedText] = useState('');
+  const [showCursor, setShowCursor] = useState(true);
+
+  useEffect(() => {
+    let current = 0;
+    let typingInterval: NodeJS.Timeout;
+    let cursorInterval: NodeJS.Timeout;
+    setTypedText('');
+    setShowCursor(true);
+    typingInterval = setInterval(() => {
+      setTypedText(text.slice(0, current + 1));
+      current++;
+      if (current === text.length) {
+        clearInterval(typingInterval);
+        cursorInterval = setInterval(() => {
+          setShowCursor((prev) => !prev);
+        }, 500);
+      }
+    }, 80);
+    return () => {
+      clearInterval(typingInterval);
+      clearInterval(cursorInterval);
+    };
+  }, [text]);
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', minHeight: '2.5rem', fontFamily: 'monospace', fontSize: '1.3rem', margin: '0.5rem 0 1.5rem 0', color: 'var(--accent-color)' }}>
+      {typedText}
+      <span style={{
+        display: 'inline-block',
+        width: '1ch',
+        color: 'var(--accent-color)',
+        opacity: showCursor ? 1 : 0,
+        fontWeight: 'bold',
+        fontSize: '1.3rem',
+        marginLeft: '2px',
+      }}>|</span>
+    </div>
+  );
+}
+
+function Preloader() {
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      background: 'rgba(20, 20, 30, 0.98)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 9999,
+    }}>
+      <div style={{
+        border: '6px solid #222',
+        borderTop: '6px solid var(--accent-color, #42a5f5)',
+        borderRadius: '50%',
+        width: 60,
+        height: 60,
+        animation: 'spin 1s linear infinite',
+      }} />
+      <style>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 export default function HomePage() {
   const [activeLineIndex, setActiveLineIndex] = useState(0);
+  const [typedDesignation, setTypedDesignation] = useState('');
+  const [showCursor, setShowCursor] = useState(true);
+  const [loading, setLoading] = useState(true);
+
+  // Elongated description
+  const description = `Tech enthusiast. Creative thinker. Always building something impactful. I blend machine learning, Android development, and storytelling to solve real-world problems. Whether it’s leading MUNs, organizing hackathons, or kickstarting community ideas — I’m all about innovation, curiosity, and meaningful work.`;
+
+  // Typing effect for designation
+  useEffect(() => {
+    let current = 0;
+    let typingInterval: NodeJS.Timeout;
+    let cursorInterval: NodeJS.Timeout;
+    setTypedDesignation('');
+    setShowCursor(true);
+    typingInterval = setInterval(() => {
+      setTypedDesignation(DESIGNATION.slice(0, current + 1));
+      current++;
+      if (current === DESIGNATION.length) {
+        clearInterval(typingInterval);
+        cursorInterval = setInterval(() => {
+          setShowCursor((prev) => !prev);
+        }, 500);
+      }
+    }, 80);
+    return () => {
+      clearInterval(typingInterval);
+      clearInterval(cursorInterval);
+    };
+  }, []);
 
   const codeLines = [
     { code: 'const HomePage = () => {', type: 'function' },
@@ -14,9 +119,9 @@ export default function HomePage() {
       type: 'variable',
     },
     { code: '  const developerInfo = {', type: 'variable' },
-    { code: "    name: 'Nitin Ranganath',", type: 'array-item' },
-    { code: "    role: 'Full Stack Developer',", type: 'array-item' },
-    { code: "    bio: 'Building modern web experiences'", type: 'array-item' },
+    { code: "    name: 'Prajwal Gunnala',", type: 'array-item' },
+    { code: "    role: 'AI/ML & Android Developer',", type: 'array-item' },
+    { code: "    bio: 'Tech enthusiast. Creative thinker. Always building something impactful. I blend machine learning, Android development, and storytelling to solve real-world problems. Whether it’s leading MUNs, organizing hackathons, or kickstarting community ideas — I’m all about innovation, curiosity, and meaningful work.',", type: 'array-item' },
     { code: '  };', type: 'array-end' },
     { code: '', type: 'blank' },
     { code: '  useEffect(() => {', type: 'nested-function' },
@@ -52,63 +157,35 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, [codeLines.length]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200); // 1.2s preloader
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <Preloader />;
+
   return (
     <div className={styles.heroLayout}>
-      <div className={styles.container}>
-        <div className={styles.codeSection}>
-          <div className={styles.codeContainer}>
-            <div className={styles.editorContent}>
-              <div className={styles.lineNumbers}>
-                {codeLines.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`${styles.lineNumber} ${
-                      index === activeLineIndex ? styles.activeLine : ''
-                    }`}
-                  >
-                    {index + 1}
-                  </div>
-                ))}
-              </div>
-
-              <div className={styles.codeEditor}>
-                {codeLines.map((line, index) => (
-                  <div
-                    key={index}
-                    className={`${styles.codeLine} ${styles[line.type]} ${
-                      index === activeLineIndex ? styles.highlightedLine : ''
-                    }`}
-                  >
-                    {line.code}
-                  </div>
-                ))}
-              </div>
-
-              <div className={styles.overlayGlow}></div>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.infoSection}>
-          <h1 className={styles.developerName}>
-            Nitin <span className={styles.accentText}>Ranganath</span>
+      <div className={styles.container} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div className={styles.infoSection} style={{ alignItems: 'flex-start', textAlign: 'left', width: '75%' }}>
+          <h1 className={styles.developerName} style={{ textAlign: 'left' }}>
+            Prajwal <span className={styles.accentText}>Gunnala</span>
           </h1>
-
-          <div className={styles.developerRole}>Full Stack Web Developer</div>
-
-          <p className={styles.bio}>
-            I build elegant, responsive web applications with modern
-            technologies. Focused on clean code and intuitive user experiences.
+          {/* Typing effect for designation */}
+          <TypingDesignation text="AI/ML & Flutter Mobile Developer" />
+          <p className={styles.bio} style={{ textAlign: 'left', maxWidth: '75vw', width: '75vw', whiteSpace: 'normal' }}>
+            {description}
           </p>
-
-          <div className={styles.actionLinks}>
+          <div className={styles.actionLinks} style={{ textAlign: 'left' }}>
             <Link href="/projects" className={styles.primaryLink}>
               View Projects <VscArrowRight />
             </Link>
           </div>
         </div>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-start', height: '100%' }}>
+          <img src="/flutter.png" alt="Flutter Logo" style={{ maxWidth: '320px', width: '100%', height: 'auto', borderRadius: '12px', boxShadow: '0 4px 24px rgba(0,0,0,0.15)' }} />
+        </div>
       </div>
-
       <div className={styles.decorElements}>
         <div className={styles.codeFlare}></div>
         <div className={styles.gridLines}></div>

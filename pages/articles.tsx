@@ -9,6 +9,7 @@ interface ArticlesPageProps {
 }
 
 const ArticlesPage = ({ articles }: ArticlesPageProps) => {
+  const safeArticles = Array.isArray(articles) ? articles : [];
   return (
     <div className={styles.layout}>
       <h1 className={styles.pageTitle}>My Articles</h1>
@@ -25,7 +26,7 @@ const ArticlesPage = ({ articles }: ArticlesPageProps) => {
         where I share insights and tutorials about web development.
       </p>
       <div className={styles.container}>
-        {articles.map((article) => (
+        {safeArticles.map((article) => (
           <ArticleCard key={article.id} article={article} />
         ))}
       </div>
