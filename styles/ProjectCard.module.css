@@ -6,7 +6,7 @@
   cursor: pointer;
   overflow: hidden;
   position: relative;
-  height: 250px;
+  height: 340px; /* Increased height for more content */
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.25s ease;
   text-decoration: none;
@@ -67,9 +67,9 @@
 }
 
 .description {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.05rem; /* Increased font size for readability */
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: 1rem;
 }
 

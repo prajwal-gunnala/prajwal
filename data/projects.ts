@@ -28,7 +28,15 @@ export const projects: Project[] = [
     description:
       'Hybrid LSTM-based system for predicting hard landings in commercial flights. Achieved 95% sensitivity and 96% specificity.',
     logo: '/logos/ai.svg',
-    link: 'https://github.com/prajwal-gunnala/hard-landing-prediction',
+    link: 'https://github.com/prajwal-gunnala/epilot',
     slug: 'hard-landing-prediction',
+  },
+  {
+    title: 'Fitto Kraft 🏋️‍♂️🏥🏆',
+    description:
+      'Flutter-based athlete management app that empowers Indian athletes with personalized fitness plans, injury care, tournament tracking, and career support. Built with Gemini AI and Firebase, it offers a unified, tech-enabled solution for holistic athlete development.',
+    logo: '/logos/fitness.svg', // You may want to add a suitable logo in public/logos/
+    link: 'https://github.com/prajwal-gunnala/fitto_kraft',
+    slug: 'fitto-kraft',
   },
 ];

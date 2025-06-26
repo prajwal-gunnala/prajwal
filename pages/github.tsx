@@ -17,6 +17,21 @@ const GithubPage = ({ repos, user }: GithubPageProps) => {
     <div className={styles.layout}>
       <div className={styles.pageHeading}>
         <h1 className={styles.pageTitle}>GitHub</h1>
+        <a
+          href="https://github.com/prajwal-gunnala/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            color: 'var(--accent-color)',
+            fontWeight: 600,
+            fontSize: '1.1rem',
+            textDecoration: 'underline',
+            marginBottom: 12,
+            display: 'inline-block',
+          }}
+        >
+          Visit My GitHub Profile
+        </a>
         <p className={styles.pageSubtitle}>
           Browse through my GitHub repositories and see what I&apos;ve been
           working on. These are some of my public repositories showcasing
