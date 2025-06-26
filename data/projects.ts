@@ -31,36 +31,4 @@ export const projects: Project[] = [
     link: 'https://github.com/prajwal-gunnala/hard-landing-prediction',
     slug: 'hard-landing-prediction',
   },
-  {
-    title: 'Driwwwle',
-    description:
-      'Discover creative websites and developers. A portal for you to share your projects.',
-    logo: '/logos/driwwwle.svg',
-    link: 'https://github.com/prajwalcool/driwwwle',
-    slug: 'driwwwle',
-  },
-  {
-    title: 'VSCode Portfolio',
-    description:
-      'A Visual Studio Code themed developer portfolio built with Next.js and CSS Modules.',
-    logo: '/logos/vsc.svg',
-    link: 'https://github.com/prajwalcool/vscode-portfolio',
-    slug: 'vscode-portfolio',
-  },
-  {
-    title: 'Subtrackt',
-    description:
-      'A simple and elegant way to track your subscriptions and save money.',
-    logo: '/logos/subtrackt.svg',
-    link: 'https://github.com/prajwalcool/subtrackt',
-    slug: 'subtrackt',
-  },
-  {
-    title: 'Coolify Deployments',
-    description:
-      'VSCode extension to track and deploy your Coolify applications.',
-    logo: '/logos/coolify.svg',
-    link: 'https://github.com/prajwalcool/coolify-vscode-extension',
-    slug: 'coolify-vscode-extension',
-  },
 ];
