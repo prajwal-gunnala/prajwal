@@ -28,7 +28,7 @@ const ContactPage = () => {
       setStatus('sent');
       setName('');
       setMessage('');
-    } catch (err) {
+    } catch {
       setStatus('error');
     }
   };
