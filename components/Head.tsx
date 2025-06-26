@@ -21,9 +21,10 @@ const CustomHead = ({ title }: CustomHeadProps) => {
         property="og:description"
         content="A full-stack developer building websites that you'd like to use."
       />
-      <meta property="og:image" content="https://imgur.com/4zi5KkQ.png" />
+      <meta property="og:image" content="https://i.ibb.co/4Dt4gTr/Screenshot-from-2025-06-26-17-12-00.png" />
       <meta property="og:url" content="https://vscode-portfolio.vercel.app" />
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content="https://i.ibb.co/4Dt4gTr/Screenshot-from-2025-06-26-17-12-00.png" />
     </Head>
   );
 };
