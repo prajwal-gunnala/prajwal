@@ -1,5 +1,3 @@
-import styles from '@/styles/AboutPage.module.css';
-
 const AboutPage = () => {
   const codeText = `<section>
     <p>

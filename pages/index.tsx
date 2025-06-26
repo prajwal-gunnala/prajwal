@@ -82,9 +82,9 @@ function Preloader() {
 
 export default function HomePage() {
   const [activeLineIndex, setActiveLineIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [typedDesignation, setTypedDesignation] = useState('');
   const [showCursor, setShowCursor] = useState(true);
-  const [loading, setLoading] = useState(true);
 
   // Elongated description
   const description = `Tech enthusiast. Creative thinker. Always building something impactful. I blend machine learning, Android development, and storytelling to solve real-world problems. Whether it’s leading MUNs, organizing hackathons, or kickstarting community ideas — I’m all about innovation, curiosity, and meaningful work.`;
@@ -92,23 +92,19 @@ export default function HomePage() {
   // Typing effect for designation
   useEffect(() => {
     let current = 0;
-    let typingInterval: NodeJS.Timeout;
-    let cursorInterval: NodeJS.Timeout;
-    setTypedDesignation('');
-    setShowCursor(true);
-    typingInterval = setInterval(() => {
+    const typingInterval: NodeJS.Timeout = setInterval(() => {
       setTypedDesignation(DESIGNATION.slice(0, current + 1));
       current++;
       if (current === DESIGNATION.length) {
         clearInterval(typingInterval);
-        cursorInterval = setInterval(() => {
+        const cursorInterval: NodeJS.Timeout = setInterval(() => {
           setShowCursor((prev) => !prev);
         }, 500);
       }
     }, 80);
     return () => {
       clearInterval(typingInterval);
-      clearInterval(cursorInterval);
+      // clearInterval(cursorInterval); // Only clear if defined
     };
   }, []);
 
@@ -153,7 +149,6 @@ export default function HomePage() {
     const interval = setInterval(() => {
       setActiveLineIndex((prev) => (prev + 1) % codeLines.length);
     }, 2000);
-
     return () => clearInterval(interval);
   }, [codeLines.length]);
 
